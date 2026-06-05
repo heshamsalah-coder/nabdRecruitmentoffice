@@ -1,0 +1,16 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/CPANEL_USER/public_html/
+    - /bin/cp -R index.html $DEPLOYPATH
+    - /bin/cp -R office-dashboard.html $DEPLOYPATH
+    - /bin/cp -R office-orders.html $DEPLOYPATH
+    - /bin/cp -R office-order.html $DEPLOYPATH
+    - /bin/cp -R office-new.html $DEPLOYPATH
+    - /bin/cp -R admin.html $DEPLOYPATH
+    - /bin/cp -R users.html $DEPLOYPATH
+    - /bin/cp -R workers.html $DEPLOYPATH
+    - /bin/cp -R notifications.html $DEPLOYPATH
+    - /bin/cp -R track.html $DEPLOYPATH
+    - /bin/cp -R catalog.html $DEPLOYPATH
+    - /bin/cp -R sample-cv.pdf $DEPLOYPATH

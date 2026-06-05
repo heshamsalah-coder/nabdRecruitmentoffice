@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><style>
+*{box-sizing:border-box;font-family:'IBM Plex Sans Arabic',sans-serif;margin:0;padding:0;}
+body{background:#F4F2EC;color:#16211F;}
+.app{max-width:1000px;margin:0 auto;}
+header{position:sticky;top:0;background:#F4F2ECee;border-bottom:1px solid #E5E1D6;}
+.hd{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;}
+.brand{display:flex;align-items:center;gap:10px;}
+.logo{width:36px;height:36px;border-radius:11px;background:#0C4A45;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.brand .t1{font-weight:800;font-size:14px;}.brand .t2{font-size:11px;color:#5C6A66;}
+nav{display:flex;gap:4px;border:1px solid #E5E1D6;background:#fff;border-radius:12px;padding:4px;}
+nav a{display:flex;align-items:center;gap:6px;border-radius:9px;padding:7px 13px;font-size:12px;font-weight:700;color:#5C6A66;text-decoration:none;}
+nav a.active{background:#0C4A45;color:#fff;}
+main{padding:22px 18px;}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.card{background:#fff;border:1px solid #E5E1D6;border-radius:16px;padding:16px;}
+.card .lbl{font-size:12px;color:#5C6A66;}.card .val{font-size:24px;font-weight:800;margin-top:8px;}
+.grid2{display:grid;grid-template-columns:3fr 2fr;gap:16px;margin-top:18px;}
+.panel{background:#fff;border:1px solid #E5E1D6;border-radius:16px;padding:18px;}
+.panel h3{font-size:14px;margin-bottom:14px;}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:700;}
+.warr-item{display:flex;justify-content:space-between;align-items:center;border:1px solid #E5E1D6;border-radius:12px;padding:10px;margin-bottom:8px;}
+.muted{color:#5C6A66;font-size:13px;}
+.gold{color:#B5862A;}
+table{width:100%;border-collapse:collapse;}
+.orow{display:flex;align-items:center;gap:12px;padding:14px 16px;border-top:1px solid #E5E1D6;}
+.orow:first-child{border-top:none;}
+.f1{flex:1;}
+.search{display:flex;gap:10px;margin-bottom:14px;}
+.search input{flex:1;border:1px solid #E5E1D6;background:#fff;border-radius:12px;padding:11px 14px;font-size:14px;}
+.search select{border:1px solid #E5E1D6;background:#fff;border-radius:12px;padding:11px 14px;font-size:14px;}
+.field .k{font-size:12px;color:#5C6A66;}.field .v{font-size:14px;font-weight:700;margin-top:2px;}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.btn{background:#0C4A45;color:#fff;border:none;border-radius:12px;padding:11px 16px;font-weight:800;font-size:14px;}
+.frow{display:flex;justify-content:space-between;font-size:14px;padding:3px 0;}
+.doc{display:flex;justify-content:space-between;align-items:center;border:1px solid #E5E1D6;border-radius:12px;padding:10px 13px;margin-bottom:8px;}
+.tag{background:#E3EEEC;color:#0C4A45;border-radius:9px;padding:6px 11px;font-size:12px;font-weight:700;}
+.timeline{display:flex;align-items:center;gap:4px;margin-top:18px;}
+.step{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:74px;}
+.dot{width:30px;height:30px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+.bar{height:3px;flex:1;border-radius:2px;}
+.label-in{background:#0C4A451A;color:#0C4A45;}
+input,select{outline:none;}
+
+</style></head><body><div class="app"><header><div class="hd"><div class="brand"><div class="logo">RMS</div><div><div class="t1">نظام إدارة الاستقدام</div><div class="t2">متابعة الطلبات وحالة العمالة</div></div></div><nav><a href="office-dashboard.html">لوحة التحكم</a><a href="office-orders.html">الطلبات</a><a class="active" href="office-new.html">طلب جديد</a></nav></div></header><main>
+<div class="panel" style="max-width:680px;margin:0 auto">
+  <h2 style="font-size:18px;font-weight:800">طلب استقدام جديد</h2>
+  <p class="muted" style="margin:4px 0 18px">أنشئ ملف العميل (Lead) ثم استكمل المراحل لاحقاً.</p>
+  <div class="fgrid">
+    <div><div class="field"><div class="k">اسم العميل *</div></div><input style="width:100%;border:1px solid #E5E1D6;background:#FBFAF6;border-radius:11px;padding:10px 12px" value="سعد المطيري"></div>
+    <div><div class="field"><div class="k">رقم الجوال (أبشر) *</div></div><input style="width:100%;border:1px solid #E5E1D6;background:#FBFAF6;border-radius:11px;padding:10px 12px" value="0561112233"></div>
+    <div><div class="field"><div class="k">رقم الهوية / الإقامة</div></div><input style="width:100%;border:1px solid #E5E1D6;background:#FBFAF6;border-radius:11px;padding:10px 12px" value="1090012345"></div>
+    <div><div class="field"><div class="k">المدينة</div></div><input style="width:100%;border:1px solid #E5E1D6;background:#FBFAF6;border-radius:11px;padding:10px 12px" value="الرياض"></div>
+    <div><div class="field"><div class="k">المهنة المطلوبة</div></div><input style="width:100%;border:1px solid #E5E1D6;background:#FBFAF6;border-radius:11px;padding:10px 12px" value="عاملة منزلية"></div>
+    <div><div class="field"><div class="k">الجنسية المطلوبة</div></div><input style="width:100%;border:1px solid #E5E1D6;background:#FBFAF6;border-radius:11px;padding:10px 12px" value="أوغندا"></div>
+    <div><div class="field"><div class="k">مبلغ العقد (ر.س)</div></div><input style="width:100%;border:1px solid #E5E1D6;background:#FBFAF6;border-radius:11px;padding:10px 12px" value="12000"></div>
+    <div style="border:1px solid #E5E1D6;background:#FBFAF6;border-radius:11px;padding:8px 12px"><div class="k" style="font-size:12px;color:#5C6A66">الإجمالي شامل الضريبة 15%</div><div style="font-weight:800;color:#0C4A45">13,800 ر.س</div></div>
+  </div>
+  <div style="display:flex;gap:12px;margin-top:22px"><button class="btn" style="flex:1">إنشاء الطلب</button><button style="border:1px solid #E5E1D6;background:#fff;color:#5C6A66;border-radius:12px;padding:11px 20px;font-weight:700">إلغاء</button></div>
+</div>
+</main></div></body></html>

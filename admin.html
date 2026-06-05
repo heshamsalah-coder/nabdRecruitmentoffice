@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>لوحة مدير المنصة</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+  :root{--primary:#0C4A45;--bg:#F4F2EC;--card:#fff;--ink:#16211F;--sub:#5C6A66;--line:#E5E1D6;--gold:#B5862A;}
+  *{box-sizing:border-box;font-family:'IBM Plex Sans Arabic',sans-serif;}
+  body{margin:0;background:var(--bg);color:var(--ink);}
+  .wrap{max-width:840px;margin:0 auto;padding:28px 16px;}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:22px;}
+  .logo{width:42px;height:42px;border-radius:12px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:18px;}
+  h1{font-size:19px;margin:0 0 2px;} h2{font-size:15px;margin:0 0 14px;}
+  .muted{color:var(--sub);font-size:13px;}
+  label{display:block;font-size:13px;color:var(--sub);margin:10px 0 5px;}
+  input,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:#FBFAF6;font-size:14px;outline:none;}
+  input:focus,select:focus{border-color:var(--primary);}
+  button{padding:11px 16px;border:none;border-radius:11px;background:var(--primary);color:#fff;font-weight:700;font-size:14px;cursor:pointer;}
+  button.ghost{background:transparent;color:var(--primary);border:1px solid var(--line);}
+  button:active{transform:scale(.98);}
+  .row{display:flex;gap:10px;flex-wrap:wrap;}
+  .row>*{flex:1;min-width:140px;}
+  .err{background:#FEF2F2;color:#B91C1C;padding:9px 12px;border-radius:11px;font-size:13px;margin:8px 0;display:none;}
+  .ok{background:#ECFDF5;color:#047857;padding:9px 12px;border-radius:11px;font-size:13px;margin:8px 0;display:none;}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{text-align:right;padding:10px 8px;border-bottom:1px solid var(--line);}
+  th{color:var(--sub);font-weight:600;font-size:12px;}
+  .pill{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;}
+  .on{background:#ECFDF5;color:#047857;} .off{background:#FEF2F2;color:#B91C1C;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;}
+  #app{display:none;}
+</style>
+</head>
+<body>
+<script>
+/* محاكاة الـ API للمعاينة الثابتة فقط — لا خادم ولا حفظ بيانات.
+   تعترض كل نداءات fetch إلى /api/... وتُعيد بيانات تجريبية في الذاكرة. */
+(function () {
+  const ALL = ["orders.view","orders.create","orders.edit","orders.advance","documents.manage","finance.view","finance.edit","workers.view","workers.manage","dashboard.view","users.manage"];
+  const SUPER = ["offices.manage","users.manage"];
+
+  const MOCK = {
+    offices: [
+      { id:1, name:"مكتب الرياض للاستقدام", active:true, catalogKey:"demo-riyadh", users:5, orders:2, workers:4 },
+      { id:2, name:"مكتب جدة للاستقدام", active:true, catalogKey:"demo-jeddah", users:1, orders:1, workers:1 },
+    ],
+    users: [
+      { id:1, name:"مشرف الرياض", username:"supervisor", role:"supervisor", active:true },
+      { id:2, name:"محاسب الرياض", username:"accountant", role:"accountant", active:true },
+      { id:3, name:"موظف متابعة", username:"followup", role:"follow_up", active:true },
+      { id:4, name:"موظف استقبال", username:"reception", role:"reception", active:true },
+    ],
+    roles: [
+      { role:"supervisor", label:"مشرف المكتب", permissions:["orders.view","orders.create","orders.edit","orders.advance","documents.manage","finance.view","finance.edit","workers.view","workers.manage","dashboard.view","users.manage"] },
+      { role:"accountant", label:"محاسب", permissions:["orders.view","finance.view","finance.edit","documents.manage","workers.view","dashboard.view"] },
+      { role:"follow_up", label:"موظف متابعة", permissions:["orders.view","orders.edit","orders.advance","documents.manage","workers.view","workers.manage","dashboard.view"] },
+      { role:"reception", label:"موظف استقبال", permissions:["orders.view","orders.create","orders.edit","documents.manage","workers.view","workers.manage"] },
+    ],
+    workers: [
+      { id:1, name:"Maria Santos", age:32, nationality:"الفلبين", profession:"عاملة منزلية", phone:"0563000001", passportNo:"P9921045", status:"available", hasPhoto:false, hasCv:true, reservation:null },
+      { id:2, name:"Aisha Bekele", age:28, nationality:"إثيوبيا", profession:"عاملة منزلية", phone:"", passportNo:"ET5512098", status:"available", hasPhoto:false, hasCv:false, reservation:null },
+      { id:3, name:"Rahim Uddin", age:35, nationality:"بنغلاديش", profession:"سائق خاص", phone:"0563000003", passportNo:"BX4410922", status:"reserved", hasPhoto:false, hasCv:false, reservation:{ clientPhone:"0561234567", status:"pending", at:"2026-06-05" } },
+      { id:4, name:"Grace Wanjiru", age:30, nationality:"كينيا", profession:"عاملة منزلية", phone:"", passportNo:"KE7781234", status:"available", hasPhoto:false, hasCv:true, reservation:null },
+    ],
+    reservations: [
+      { id:1, clientPhone:"0561234567", status:"pending", at:"2026-06-05", worker:{ id:3, name:"Rahim Uddin", nationality:"بنغلاديش", profession:"سائق خاص", status:"reserved" } },
+      { id:2, clientPhone:"0509876543", status:"contacted", at:"2026-06-04", worker:{ id:5, name:"Lakmali Perera", nationality:"سريلانكا", profession:"عاملة منزلية", status:"reserved" } },
+    ],
+    catalog: {
+      officeName:"مكتب الرياض للاستقدام",
+      nationalities:["الفلبين","إثيوبيا","كينيا"],
+      workers:[
+        { id:1, name:"Maria Santos", age:32, nationality:"الفلبين", profession:"عاملة منزلية", photoUrl:null, cvUrl:"/sample-cv.pdf" },
+        { id:2, name:"Aisha Bekele", age:28, nationality:"إثيوبيا", profession:"عاملة منزلية", photoUrl:null, cvUrl:null },
+        { id:4, name:"Grace Wanjiru", age:30, nationality:"كينيا", profession:"عاملة منزلية", photoUrl:null, cvUrl:"/sample-cv.pdf" },
+      ],
+    },
+    track: {
+      orderNo:"REC-1042", status:"external", statusLabel:"إجراءات خارجية",
+      profession:"عاملة منزلية", nationality:"الفلبين", arrivalDate:null, warranty:null,
+      timeline:[
+        { status:"lead", label:"استفسار", at:"2026-05-02" },
+        { status:"contract", label:"تعاقد", at:"2026-05-03" },
+        { status:"visa", label:"تأشيرة", at:"2026-05-11" },
+        { status:"selection", label:"اختيار العامل", at:"2026-05-18" },
+        { status:"external", label:"إجراءات خارجية", at:"2026-05-22" },
+      ],
+      updates:[ { message:"مكتب الاستقدام | طلب رقم REC-1042: تم إصدار التأشيرة برقم 4023118765.", at:"2026-05-11" } ],
+    },
+  };
+
+  const ok = (data, status=200) => ({ ok: status<400, status, json: async()=>data, text: async()=>JSON.stringify(data), blob: async()=>new Blob() });
+  const readBody = (opts) => {
+    if (!opts || !opts.body) return {};
+    if (typeof opts.body === "string") { try { return JSON.parse(opts.body); } catch { return {}; } }
+    if (opts.body instanceof FormData) { const o={}; for (const [k,v] of opts.body.entries()) o[k]=v; return o; }
+    return {};
+  };
+
+  const realFetch = window.fetch.bind(window);
+  window.fetch = async (url, opts={}) => {
+    let path, qs;
+    try { const u = new URL(url, location.origin); path = u.pathname; qs = u.searchParams; }
+    catch { return realFetch(url, opts); }
+    if (!path.startsWith("/api/")) return realFetch(url, opts); // ملفات ثابتة (assets) تمر طبيعياً
+    const m = (opts.method || "GET").toUpperCase();
+    const b = readBody(opts);
+    const idIn = (re) => { const x = path.match(re); return x ? Number(x[1]) : null; };
+
+    // المصادقة (دخول تجريبي)
+    if (path === "/api/auth/login") {
+      const isSuper = (b.username || "").toLowerCase() === "super";
+      return ok({ token:"preview", user:{ role: isSuper?"super_admin":"supervisor", roleLabel: isSuper?"مدير المنصة":"مشرف المكتب", officeId:1, permissions: isSuper?SUPER:ALL } });
+    }
+    if (path === "/api/me") return ok({ role:"supervisor", roleLabel:"مشرف المكتب", officeId:1, permissions:ALL });
+
+    // مدير المنصة
+    if (path === "/api/admin/offices" && m === "GET") return ok(MOCK.offices);
+    if (path === "/api/admin/offices" && m === "POST") {
+      const o = { id: MOCK.offices.length+1, name: b.officeName, active:true, catalogKey:"demo-"+(MOCK.offices.length+1), users:1, orders:0, workers:0 };
+      MOCK.offices.push(o);
+      return ok({ officeId:o.id, officeName:o.name, supervisor:{ username:(b.supervisor&&b.supervisor.username)||"supervisor", role:"supervisor" } }, 201);
+    }
+    if (path.match(/^\/api\/admin\/offices\/\d+$/) && m === "PATCH") {
+      const o = MOCK.offices.find((x)=>x.id===idIn(/\/(\d+)$/)); if(o) o.active = !!b.active; return ok({ id:o.id, name:o.name, active:o.active });
+    }
+
+    // مستخدمو المكتب
+    if (path === "/api/users/roles") return ok(MOCK.roles);
+    if (path === "/api/users" && m === "GET") return ok(MOCK.users);
+    if (path === "/api/users" && m === "POST") { const u={ id:MOCK.users.length+1, name:b.name, username:b.username, role:b.role, active:true }; MOCK.users.push(u); return ok(u,201); }
+    if (path.match(/^\/api\/users\/\d+$/) && m === "PATCH") { const u=MOCK.users.find((x)=>x.id===idIn(/\/(\d+)$/)); if(u){ if(b.active!==undefined)u.active=!!b.active; if(b.role)u.role=b.role; } return ok(u); }
+
+    // العمالة
+    if (path === "/api/workers/catalog-link") return ok({ key:"demo-riyadh", path:"/catalog.html?key=demo-riyadh" });
+    if (path === "/api/workers/reservations" && m === "GET") return ok(MOCK.reservations);
+    if (path.match(/^\/api\/workers\/reservations\/\d+$/) && m === "PATCH") {
+      const r = MOCK.reservations.find((x)=>x.id===idIn(/\/(\d+)$/)); if(r) r.status = b.status; return ok({ ok:true });
+    }
+    if (path === "/api/workers" && m === "GET") return ok(MOCK.workers);
+    if (path === "/api/workers" && m === "POST") {
+      const w = { id:MOCK.workers.length+1, name:b.name||"عاملة", age:b.age?Number(b.age):null, nationality:b.nationality||"", profession:b.profession||"", phone:b.phone||"", passportNo:b.passportNo||"", status:b.status||"available", hasPhoto:!!b.photo, hasCv:!!b.cv, reservation:null };
+      MOCK.workers.unshift(w); return ok(w,201);
+    }
+    if (path.match(/^\/api\/workers\/\d+$/) && m === "PATCH") { const w=MOCK.workers.find((x)=>x.id===idIn(/\/(\d+)$/)); if(w&&b.status)w.status=b.status; return ok(w||{}); }
+
+    // البوابات العامة
+    if (path === "/api/public/track") return ok(MOCK.track);
+    if (path === "/api/public/catalog" && m === "GET") return ok(JSON.parse(JSON.stringify(MOCK.catalog)));
+    if (path === "/api/public/catalog/reserve") return ok({ message: "تم استلام طلب الحجز (نسخة معاينة — لا يُحفظ فعلياً). في النظام الحقيقي يصل المكتب فوراً." }, 201);
+
+    return ok({ error:"preview" }, 404);
+  };
+
+  // دخول تلقائي في صفحات الإدارة لعرض المحتوى مباشرةً
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      try {
+        const app = document.getElementById("app");
+        if (typeof doLogin === "function" && app && getComputedStyle(app).display === "none") doLogin();
+      } catch (e) {}
+    }, 60);
+  });
+})();
+
+</script>
+<div class="wrap">
+  <div class="brand">
+    <div class="logo">RMS</div>
+    <div><div style="font-weight:700">لوحة مدير المنصة</div><div class="muted">إدارة المكاتب والمشرفين</div></div>
+  </div>
+
+  <!-- تسجيل الدخول -->
+  <div class="card" id="loginCard">
+    <h2>تسجيل الدخول</h2>
+    <div class="err" id="loginErr"></div>
+    <label>اسم المستخدم</label><input id="u" value="super" />
+    <label>كلمة المرور</label><input id="p" type="password" value="super123" />
+    <div style="margin-top:14px"><button onclick="doLogin()">دخول</button></div>
+    <p class="muted" style="margin-top:10px">تجريبي: super / super123</p>
+  </div>
+
+  <!-- التطبيق -->
+  <div id="app">
+    <div class="card">
+      <div class="topbar">
+        <h2 style="margin:0">المكاتب المسجّلة</h2>
+        <button class="ghost" onclick="logout()">خروج</button>
+      </div>
+      <div id="officesBox" class="muted" style="margin-top:12px">…</div>
+    </div>
+
+    <div class="card">
+      <h2>إنشاء مكتب جديد + حساب مشرف</h2>
+      <div class="err" id="cErr"></div><div class="ok" id="cOk"></div>
+      <label>اسم المكتب</label><input id="officeName" placeholder="مثال: مكتب القصيم للاستقدام" />
+      <div class="row">
+        <div><label>اسم المشرف</label><input id="supName" placeholder="الاسم" /></div>
+        <div><label>اسم المستخدم</label><input id="supUser" placeholder="username" /></div>
+        <div><label>كلمة المرور</label><input id="supPass" type="password" /></div>
+      </div>
+      <div style="margin-top:14px"><button onclick="createOffice()">إنشاء المكتب</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = location.origin;
+let token = sessionStorage.getItem("rms_admin_token") || null;
+const $ = (id) => document.getElementById(id);
+const show = (el, msg) => { el.textContent = msg; el.style.display = "block"; };
+const hide = (el) => { el.style.display = "none"; };
+
+async function api(path, opts = {}) {
+  const res = await fetch(API + path, {
+    ...opts,
+    headers: { "Content-Type": "application/json", Authorization: "Bearer " + token, ...(opts.headers || {}) },
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || "خطأ");
+  return data;
+}
+
+async function doLogin() {
+  hide($("loginErr"));
+  try {
+    const res = await fetch(API + "/api/auth/login", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: $("u").value, password: $("p").value }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    if (data.user.role !== "super_admin") throw new Error("هذا الحساب ليس مدير منصة.");
+    token = data.token; sessionStorage.setItem("rms_admin_token", token);
+    enterApp();
+  } catch (e) { show($("loginErr"), e.message); }
+}
+
+function logout() { token = null; sessionStorage.removeItem("rms_admin_token"); $("app").style.display = "none"; $("loginCard").style.display = "block"; }
+
+function enterApp() { $("loginCard").style.display = "none"; $("app").style.display = "block"; loadOffices(); }
+
+async function loadOffices() {
+  try {
+    const offices = await api("/api/admin/offices");
+    $("officesBox").innerHTML = `<table><tr><th>#</th><th>المكتب</th><th>المستخدمون</th><th>الطلبات</th><th>العمالة</th><th>رابط الكتالوج</th><th>الحالة</th><th></th></tr>` +
+      offices.map((o) => `<tr>
+        <td>${o.id}</td><td>${o.name}</td><td>${o.users}</td><td>${o.orders}</td><td>${o.workers ?? 0}</td>
+        <td><button class="ghost" style="padding:4px 10px;font-size:12px" onclick="copyCatalog('${o.catalogKey}')">نسخ الرابط</button></td>
+        <td><span class="pill ${o.active ? "on" : "off"}">${o.active ? "نشط" : "موقوف"}</span></td>
+        <td><button class="ghost" style="padding:5px 10px" onclick="toggleOffice(${o.id},${!o.active})">${o.active ? "إيقاف" : "تفعيل"}</button></td>
+      </tr>`).join("") + `</table>`;
+  } catch (e) { $("officesBox").textContent = e.message; }
+}
+
+async function toggleOffice(id, active) {
+  try { await api(`/api/admin/offices/${id}`, { method: "PATCH", body: JSON.stringify({ active }) }); loadOffices(); }
+  catch (e) { alert(e.message); }
+}
+
+function copyCatalog(key) {
+  const url = location.origin + "/catalog.html?key=" + key;
+  navigator.clipboard?.writeText(url);
+  alert("تم نسخ رابط الكتالوج:\n" + url);
+}
+
+async function createOffice() {
+  hide($("cErr")); hide($("cOk"));
+  try {
+    const data = await api("/api/admin/offices", {
+      method: "POST",
+      body: JSON.stringify({
+        officeName: $("officeName").value,
+        supervisor: { name: $("supName").value, username: $("supUser").value, password: $("supPass").value },
+      }),
+    });
+    show($("cOk"), `تم إنشاء «${data.officeName}» ومشرفه «${data.supervisor.username}».`);
+    $("officeName").value = $("supName").value = $("supUser").value = $("supPass").value = "";
+    loadOffices();
+  } catch (e) { show($("cErr"), e.message); }
+}
+
+if (token) enterApp();
+</script>
+</body>
+</html>

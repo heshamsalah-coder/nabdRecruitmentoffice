@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>منصة إدارة مكاتب الاستقدام — معاينة</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+  :root{--primary:#0C4A45;--bg:#F4F2EC;--card:#fff;--ink:#16211F;--sub:#5C6A66;--line:#E5E1D6;--gold:#B5862A;}
+  *{box-sizing:border-box;font-family:'IBM Plex Sans Arabic',sans-serif;}
+  body{margin:0;background:var(--bg);color:var(--ink);}
+  .hero{background:var(--primary);color:#fff;padding:46px 16px 40px;}
+  .wrap{max-width:1000px;margin:0 auto;}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .logo{width:52px;height:52px;border-radius:15px;background:#fff;color:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;}
+  h1{font-size:26px;margin:18px 0 6px;}
+  .hero p{color:#cfe0dc;font-size:15px;margin:0;max-width:620px;line-height:1.8;}
+  .note{display:inline-block;margin-top:16px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:7px 14px;border-radius:999px;font-size:13px;}
+  .sec{padding:30px 16px;}
+  h2{font-size:17px;color:var(--primary);margin:0 0 14px;display:flex;align-items:center;gap:8px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;}
+  a.tile{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;transition:transform .15s,box-shadow .15s;}
+  a.tile:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.10);}
+  .tile .ic{width:42px;height:42px;border-radius:12px;background:#E3EEEC;color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:10px;}
+  .tile .t{font-weight:700;font-size:15px;color:var(--ink);}
+  .tile .d{color:var(--sub);font-size:13px;margin-top:4px;line-height:1.6;}
+  .foot{color:var(--sub);font-size:12px;text-align:center;padding:24px;}
+  .pillrow{margin-top:8px}
+  .tagp{display:inline-block;background:#E3EEEC;color:var(--primary);border-radius:8px;padding:2px 9px;font-size:11px;font-weight:700;margin:2px}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="wrap">
+    <div class="brand"><div class="logo">RMS</div><div><div style="font-weight:700">منصة إدارة مكاتب الاستقدام</div><div style="font-size:12px;color:#cfe0dc">Recruitment Management System</div></div></div>
+    <h1>معاينة الواجهات والتطبيق</h1>
+    <p>هذه نسخة معاينة لكل واجهات النظام ببيانات تجريبية لاستعراض الشكل وتجربة التنقّل والتفاعل.</p>
+    <span class="note">⚠️ نسخة معاينة فقط — لا يتم حفظ أو ربط أي بيانات حقيقية</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="sec">
+    <h2>🗂️ تطبيق المكتب</h2>
+    <div class="grid">
+      <a class="tile" href="office-dashboard.html"><div class="ic">📊</div><div class="t">لوحة تحكم المكتب</div><div class="d">مؤشرات فورية ومخطط المراحل والضمانات.</div></a>
+      <a class="tile" href="office-orders.html"><div class="ic">📋</div><div class="t">قائمة الطلبات</div><div class="d">تصفّح الطلبات مع البحث والفلترة.</div></a>
+      <a class="tile" href="office-order.html"><div class="ic">🧾</div><div class="t">تفاصيل الطلب</div><div class="d">المراحل والبيانات والمستندات والمالية.</div></a>
+      <a class="tile" href="office-new.html"><div class="ic">➕</div><div class="t">طلب جديد</div><div class="d">إنشاء ملف عميل جديد.</div></a>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>🛠️ لوحات الإدارة</h2>
+    <div class="grid">
+      <a class="tile" href="admin.html"><div class="ic">🏢</div><div class="t">لوحة مدير المنصة</div><div class="d">إدارة المكاتب وروابط الكتالوج.</div></a>
+      <a class="tile" href="users.html"><div class="ic">👥</div><div class="t">إدارة مستخدمي المكتب</div><div class="d">المستخدمون والأدوار والصلاحيات.</div></a>
+      <a class="tile" href="workers.html"><div class="ic">🧑‍🍳</div><div class="t">إدارة العمالة المتوفرة</div><div class="d">قاعدة العمالة ورابط الكتالوج.</div></a>
+      <a class="tile" href="notifications.html"><div class="ic">🔔</div><div class="t">إشعارات حجز السير</div><div class="d">طلبات الحجز الواردة من العملاء.</div></a>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>🌐 بوابات العميل</h2>
+    <div class="grid">
+      <a class="tile" href="track.html"><div class="ic">🔎</div><div class="t">بوابة متابعة الطلب</div><div class="d">متابعة الطلب برقمه وآخر 4 أرقام من الجوال.</div></a>
+      <a class="tile" href="catalog.html?key=demo-riyadh"><div class="ic">🗂️</div><div class="t">كتالوج العمالة + الحجز</div><div class="d">تصفّح العمالة المتوفرة وعرض السيرة والحجز.</div></a>
+    </div>
+    <div class="pillrow"><span class="tagp">دخول الإدارة تلقائي في المعاينة</span><span class="tagp">جرّب الفلاتر والنوافذ والحجز</span></div>
+  </div>
+</div>
+
+<div class="foot">نسخة معاينة — منصة إدارة مكاتب الاستقدام · جميع البيانات تجريبية</div>
+</body>
+</html>

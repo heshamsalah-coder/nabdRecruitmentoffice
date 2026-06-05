@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><style>
+*{box-sizing:border-box;font-family:'IBM Plex Sans Arabic',sans-serif;margin:0;padding:0;}
+body{background:#F4F2EC;color:#16211F;}
+.app{max-width:1000px;margin:0 auto;}
+header{position:sticky;top:0;background:#F4F2ECee;border-bottom:1px solid #E5E1D6;}
+.hd{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;}
+.brand{display:flex;align-items:center;gap:10px;}
+.logo{width:36px;height:36px;border-radius:11px;background:#0C4A45;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.brand .t1{font-weight:800;font-size:14px;}.brand .t2{font-size:11px;color:#5C6A66;}
+nav{display:flex;gap:4px;border:1px solid #E5E1D6;background:#fff;border-radius:12px;padding:4px;}
+nav a{display:flex;align-items:center;gap:6px;border-radius:9px;padding:7px 13px;font-size:12px;font-weight:700;color:#5C6A66;text-decoration:none;}
+nav a.active{background:#0C4A45;color:#fff;}
+main{padding:22px 18px;}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.card{background:#fff;border:1px solid #E5E1D6;border-radius:16px;padding:16px;}
+.card .lbl{font-size:12px;color:#5C6A66;}.card .val{font-size:24px;font-weight:800;margin-top:8px;}
+.grid2{display:grid;grid-template-columns:3fr 2fr;gap:16px;margin-top:18px;}
+.panel{background:#fff;border:1px solid #E5E1D6;border-radius:16px;padding:18px;}
+.panel h3{font-size:14px;margin-bottom:14px;}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:700;}
+.warr-item{display:flex;justify-content:space-between;align-items:center;border:1px solid #E5E1D6;border-radius:12px;padding:10px;margin-bottom:8px;}
+.muted{color:#5C6A66;font-size:13px;}
+.gold{color:#B5862A;}
+table{width:100%;border-collapse:collapse;}
+.orow{display:flex;align-items:center;gap:12px;padding:14px 16px;border-top:1px solid #E5E1D6;}
+.orow:first-child{border-top:none;}
+.f1{flex:1;}
+.search{display:flex;gap:10px;margin-bottom:14px;}
+.search input{flex:1;border:1px solid #E5E1D6;background:#fff;border-radius:12px;padding:11px 14px;font-size:14px;}
+.search select{border:1px solid #E5E1D6;background:#fff;border-radius:12px;padding:11px 14px;font-size:14px;}
+.field .k{font-size:12px;color:#5C6A66;}.field .v{font-size:14px;font-weight:700;margin-top:2px;}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.btn{background:#0C4A45;color:#fff;border:none;border-radius:12px;padding:11px 16px;font-weight:800;font-size:14px;}
+.frow{display:flex;justify-content:space-between;font-size:14px;padding:3px 0;}
+.doc{display:flex;justify-content:space-between;align-items:center;border:1px solid #E5E1D6;border-radius:12px;padding:10px 13px;margin-bottom:8px;}
+.tag{background:#E3EEEC;color:#0C4A45;border-radius:9px;padding:6px 11px;font-size:12px;font-weight:700;}
+.timeline{display:flex;align-items:center;gap:4px;margin-top:18px;}
+.step{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:74px;}
+.dot{width:30px;height:30px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+.bar{height:3px;flex:1;border-radius:2px;}
+.label-in{background:#0C4A451A;color:#0C4A45;}
+input,select{outline:none;}
+
+</style></head><body><div class="app">
+<header><div class="hd"><div class="brand"><div class="logo">RMS</div><div><div class="t1">نظام إدارة الاستقدام</div><div class="t2">متابعة الطلبات وحالة العمالة</div></div></div><nav><a href="office-dashboard.html">لوحة التحكم</a><a class="active" href="office-orders.html">الطلبات</a><a href="office-new.html">طلب جديد</a></nav></div></header>
+<main>
+<div style="color:#0C4A45;font-weight:700;font-size:14px;margin-bottom:12px;cursor:pointer" onclick="location.href='office-orders.html'">⮌ رجوع للطلبات</div>
+<div class="panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+    <div><div style="display:flex;gap:10px;align-items:center"><h2 style="font-size:20px;font-weight:800">عبدالله الشهري</h2><span class="pill" style="background:#D9770626;color:#D97706">إجراءات خارجية</span></div>
+    <div class="muted" style="margin-top:4px">REC-1042 · فُتح في ٢٠٢٦/٥/٢</div></div>
+    <button class="btn">نقل إلى: الوصول →</button>
+  </div>
+  <div class="timeline">
+    <div class="step"><div class="dot" style="background:#6B7280">✓</div><div style="font-size:10px">استفسار</div></div><div class="bar" style="background:#2563EB"></div>
+    <div class="step"><div class="dot" style="background:#2563EB">✓</div><div style="font-size:10px">تعاقد</div></div><div class="bar" style="background:#7C3AED"></div>
+    <div class="step"><div class="dot" style="background:#7C3AED">✓</div><div style="font-size:10px">تأشيرة</div></div><div class="bar" style="background:#0891B2"></div>
+    <div class="step"><div class="dot" style="background:#0891B2">✓</div><div style="font-size:10px">اختيار</div></div><div class="bar" style="background:#D97706"></div>
+    <div class="step"><div class="dot" style="background:#D97706">●</div><div style="font-size:10px">خارجية</div></div><div class="bar" style="background:#D8D4C8"></div>
+    <div class="step"><div class="dot" style="background:#D8D4C8">●</div><div style="font-size:10px;color:#5C6A66">الوصول</div></div><div class="bar" style="background:#D8D4C8"></div>
+    <div class="step"><div class="dot" style="background:#D8D4C8">●</div><div style="font-size:10px;color:#5C6A66">التسليم</div></div>
+  </div>
+</div>
+<div class="grid2" style="grid-template-columns:1fr 1fr">
+  <div class="panel"><h3>👥 بيانات العميل والتأشيرة</h3><div class="fgrid">
+    <div class="field"><div class="k">رقم الهوية</div><div class="v">1098456321</div></div>
+    <div class="field"><div class="k">الجوال (أبشر)</div><div class="v">0551234567</div></div>
+    <div class="field"><div class="k">المدينة</div><div class="v">الرياض</div></div>
+    <div class="field"><div class="k">رقم التأشيرة</div><div class="v">4023118765</div></div>
+    <div class="field"><div class="k">المهنة</div><div class="v">عاملة منزلية</div></div>
+    <div class="field"><div class="k">الجنسية</div><div class="v">الفلبين</div></div></div></div>
+  <div class="panel"><h3>✈️ بيانات العامل</h3><div class="fgrid">
+    <div class="field"><div class="k">الاسم</div><div class="v">Maria Santos</div></div>
+    <div class="field"><div class="k">رقم الجواز</div><div class="v">P9921045</div></div>
+    <div class="field"><div class="k">الحالة الصحية</div><div class="v">بانتظار الفحص</div></div>
+    <div class="field"><div class="k">تاريخ الوصول</div><div class="v">—</div></div></div>
+    <div class="tag" style="display:block;margin-top:12px">🛡️ يبدأ احتساب الضمان عند إدخال تاريخ الوصول</div></div>
+  <div class="panel"><h3>💰 البيانات المالية</h3>
+    <div class="frow"><span class="muted">مبلغ العقد</span><span style="font-weight:700">13,000 ر.س</span></div>
+    <div class="frow"><span class="muted">ضريبة القيمة المضافة 15%</span><span style="font-weight:700">1,950 ر.س</span></div>
+    <div class="frow"><span class="muted">الإجمالي شامل الضريبة</span><span style="font-weight:800">14,950 ر.س</span></div>
+    <div class="frow"><span class="muted">الرسوم الحكومية</span><span style="font-weight:700">2,000 ر.س</span></div>
+    <div class="frow"><span class="muted">الدفعة المقدمة</span><span style="font-weight:700">5,000 ر.س</span></div>
+    <div style="border-top:1px solid #E5E1D6;margin:6px 0"></div>
+    <div class="frow"><span class="muted">المبلغ المتبقي</span><span style="font-weight:800;color:#B5862A">9,950 ر.س</span></div></div>
+  <div class="panel"><h3>📎 المستندات المرفقة</h3>
+    <div class="doc" style="background:#F0FAF7"><div>✅ <b>عقد العمل</b> <span class="muted">عقد-REC1042.pdf</span></div><span class="tag">استبدال</span></div>
+    <div class="doc" style="background:#F0FAF7"><div>✅ <b>التأشيرة</b> <span class="muted">تأشيرة-4023.jpg</span></div><span class="tag">استبدال</span></div>
+    <div class="doc"><div>📄 <b>فاتورة السداد</b> <span style="color:#DC2626">*</span></div><span class="tag">إرفاق</span></div>
+    <div class="doc"><div>📄 <b>صورة الجواز</b></div><span class="tag">إرفاق</span></div></div>
+</div>
+<div class="panel" style="margin-top:16px"><h3>🔔 سجل الإشعارات المرسلة للعميل</h3>
+  <div style="display:flex;justify-content:space-between;background:#FBFAF6;border-radius:12px;padding:10px 13px;font-size:14px"><span>مكتب الاستقدام | طلب رقم REC-1042: تم إصدار التأشيرة برقم 4023118765.</span><span class="muted">WhatsApp · ٢٠٢٦/٥/١١</span></div>
+</div>
+</main></div></body></html>
